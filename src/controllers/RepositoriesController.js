@@ -8,11 +8,17 @@ class RepositoriesController {
   }
 
   store(req, res) {
-    const { name } = req.body;
+    const { title, url, techs } = req.body;
 
-    repositoriesDatabase.push(name);
+    repositoriesDatabase.push({
+      id: uuid(),
+      title,
+      url,
+      techs,
+      likes: 0
+    });
 
-    return res.json({'RepositoriesController.store': repositoriesDatabase});
+    return res.json({repositoriesDatabase});
   }
 
   update(req, res) {
