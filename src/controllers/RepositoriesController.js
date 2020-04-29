@@ -33,7 +33,7 @@ class RepositoriesController {
       (repo) => repo.id === id
     );
 
-    if (repositoryIndex > 0) {
+    if (repositoryIndex < 0) {
       return res.status(400).json({ error: 'repository not founded' });
     }
 
@@ -49,7 +49,23 @@ class RepositoriesController {
   }
 
   delete(req, res) {
-    console.log('RepositoriesController.delete');
+    const { id } = req.params;
+
+    if (!isUuid(id)) {
+      return res.status(400).json({ error: 'this is not an valid id' });
+    }
+
+    const repositoryIndex = repositoriesDatabase.findIndex(
+      (repo) => repo.id === id
+    );
+
+    if (repositoryIndex < 0) {
+      return res.status(400).json({ error: 'repository not founded' });
+    }
+
+    repositoriesDatabase.splice(repositoryIndex, 1);
+
+    return res.status(204).send();
   }
 }
 
