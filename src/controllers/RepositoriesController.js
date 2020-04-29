@@ -10,23 +10,17 @@ class RepositoriesController {
   store(req, res) {
     const { title, url, techs } = req.body;
 
-    const repositoryUrlIndex = repositoriesDatabase.findIndex(
-      (repo) => repo.url === url
-    );
-
-    if (repositoryUrlIndex >= 0) {
-      return res.status(400).json({ error: 'repository already registered' });
-    }
-
-    repositoriesDatabase.push({
+    const newRepository = {
       id: uuid(),
-      title,
       url,
+      title,
       techs,
       likes: 0,
-    });
+    }
 
-    return res.json({ repositoriesDatabase });
+    repositoriesDatabase.push(newRepository);
+
+    return res.json(newRepository);
   }
 
   update(req, res) {
@@ -53,7 +47,7 @@ class RepositoriesController {
       likes: repositoriesDatabase[repositoryIndex].likes,
     };
 
-    return res.json(repositoriesDatabase);
+    return res.json(repositoriesDatabase[repositoryIndex]);
   }
 
   delete(req, res) {

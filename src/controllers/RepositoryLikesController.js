@@ -4,7 +4,6 @@ const repositoriesDatabase = require('../database/Repositories');
 
 class RepositoryLikesController {
   store(req, res) {
-
     const { id } = req.params;
 
     if (!isUuid(id)) {
@@ -27,7 +26,7 @@ class RepositoryLikesController {
       likes: repositoriesDatabase[repositoryIndex].likes + 1,
     };
 
-    return res.json(repositoriesDatabase);
+    return res.json({ likes: repositoriesDatabase[repositoryIndex].likes });
   }
 }
 
