@@ -4,7 +4,7 @@ const repositoriesDatabase = require('../database/Repositories');
 
 class RepositoriesController {
   show(req, res) {
-    return res.json({ 'RepositoriesController.show': repositoriesDatabase });
+    return res.json(repositoriesDatabase);
   }
 
   store(req, res) {
