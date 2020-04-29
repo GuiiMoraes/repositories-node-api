@@ -1,33 +1,22 @@
-const express = require("express");
-const cors = require("cors");
+const express = require('express');
+const cors = require('cors');
+const routes = require('./routes');
 
-const { uuid } = require("uuidv4");
+class App {
+  constructor() {
+    this.server = express();
+    this.middlewares();
+    this.routes();
+  }
 
-const app = express();
+  middlewares() {
+    this.server.use(cors());
+    this.server.use(express.json());
+  }
 
-app.use(express.json());
-app.use(cors());
+  routes() {
+    this.server.use(routes);
+  }
+}
 
-const repositories = [];
-
-app.get("/repositories", (request, response) => {
-  // TODO
-});
-
-app.post("/repositories", (request, response) => {
-  // TODO
-});
-
-app.put("/repositories/:id", (request, response) => {
-  // TODO
-});
-
-app.delete("/repositories/:id", (request, response) => {
-  // TODO
-});
-
-app.post("/repositories/:id/like", (request, response) => {
-  // TODO
-});
-
-module.exports = app;
+module.exports = new App().server;;
