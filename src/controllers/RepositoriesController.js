@@ -29,7 +29,7 @@ class RepositoriesController {
       return res.status(400).json({ error: 'this is not an valid id' });
     }
 
-    let repositoryIndex = repositoriesDatabase.findIndex(
+    const repositoryIndex = repositoriesDatabase.findIndex(
       (repo) => repo.id === id
     );
 
