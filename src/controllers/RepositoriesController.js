@@ -10,6 +10,14 @@ class RepositoriesController {
   store(req, res) {
     const { title, url, techs } = req.body;
 
+    const repositoryUrlIndex = repositoriesDatabase.findIndex(
+      (repo) => repo.url === url
+    );
+
+    if (repositoryUrlIndex >= 0) {
+      return res.status(400).json({ error: 'repository already registered' });
+    }
+
     repositoriesDatabase.push({
       id: uuid(),
       title,
